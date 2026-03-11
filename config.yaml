@@ -1,0 +1,91 @@
+# SkyNetics Configuration File
+# AI-Powered Drone System for Avalanche Victim Detection
+
+# ─────────────────────────────────────────────
+# Drone / Flight Controller
+# ─────────────────────────────────────────────
+drone:
+  connection_string: "/dev/ttyUSB0"   # MAVLink serial port (or tcp:127.0.0.1:5760 for SITL)
+  baud_rate: 57600
+  altitude: 15                         # Search altitude in meters AGL
+  speed: 5                             # Cruise speed in m/s
+  hover_time: 2                        # Hover duration (s) at detection points
+  return_to_launch: true               # RTL on mission complete or low battery
+  min_battery_voltage: 14.0            # Trigger RTL below this voltage (4S LiPo)
+
+# ─────────────────────────────────────────────
+# RF Beacon Receiver (457 kHz)
+# ─────────────────────────────────────────────
+rf_beacon:
+  port: "/dev/ttyUSB1"
+  baud_rate: 9600
+  frequency_hz: 457000
+  rssi_threshold: -80                  # Minimum RSSI (dBm) to log signal
+  triangulation_points: 3              # Minimum waypoints before triangulation
+
+# ─────────────────────────────────────────────
+# RGB Camera
+# ─────────────────────────────────────────────
+camera:
+  device_id: 0
+  resolution: [1280, 720]
+  fps: 30
+  flip_horizontal: false
+
+# ─────────────────────────────────────────────
+# Thermal Imaging
+# ─────────────────────────────────────────────
+thermal:
+  device: "lepton"                     # Options: lepton | mlx90640
+  i2c_address: "0x33"                  # For MLX90640
+  temp_threshold_delta: 2.5            # Degrees C above ambient to flag
+  frame_rate: 9                        # FPS (limited by Lepton 3.5)
+
+# ─────────────────────────────────────────────
+# AI / Inference Engine
+# ─────────────────────────────────────────────
+ai:
+  model_path: "ai/models/yolov8n_avalanche.pt"
+  device: "cuda"                       # cuda | cpu
+  confidence_threshold: 0.65
+  iou_threshold: 0.45
+  inference_resolution: [640, 640]
+
+  # Sensor fusion weights (must sum to 1.0)
+  fusion_weights:
+    rf: 0.40
+    vision: 0.35
+    thermal: 0.25
+
+  # Probability threshold to trigger GPS alert
+  detection_confidence_alert: 0.80
+
+# ─────────────────────────────────────────────
+# Mission / Search Pattern
+# ─────────────────────────────────────────────
+mission:
+  zone_boundary: []                    # GPS polygon [[lat, lon], ...] of avalanche zone
+  grid_spacing: 10                     # Meters between lawnmower rows
+  scan_overlap: 0.2                    # 20% row overlap for full coverage
+  coordinate_system: "WGS84"
+
+# ─────────────────────────────────────────────
+# Ground Control / Telemetry
+# ─────────────────────────────────────────────
+ground_control:
+  telemetry_port: "/dev/ttyUSB2"
+  baud_rate: 57600
+  api_host: "0.0.0.0"
+  api_port: 8000
+  dashboard_port: 8080
+  alert_webhook_url: ""                # Optional: POST GPS alerts here
+
+# ─────────────────────────────────────────────
+# Logging
+# ─────────────────────────────────────────────
+logging:
+  level: "INFO"                        # DEBUG | INFO | WARNING | ERROR
+  log_dir: "logs/"
+  save_detections: true
+  save_thermal_frames: true
+  save_rf_logs: true

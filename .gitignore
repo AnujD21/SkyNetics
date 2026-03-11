@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.*
+
+# AI Models (large files — use Git LFS or store externally)
+ai/models/*.pt
+ai/models/*.onnx
+ai/models/*.tflite
+*.weights
+
+# Logs & mission data
+logs/
+*.log
+mission/recordings/
+mission/snapshots/
+
+# Dataset (large)
+training/dataset/images/
+training/dataset/labels/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
