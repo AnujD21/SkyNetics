@@ -1,27 +1,17 @@
 # SkyNetics Configuration File
-# AI-Powered Drone System for Avalanche Victim Detection
+# AI-Powered Drone System for Avalanche and Landslide Victim Detection
 
 # ─────────────────────────────────────────────
 # Drone / Flight Controller
 # ─────────────────────────────────────────────
 drone:
-  connection_string: "/dev/ttyUSB0"   # MAVLink serial port (or tcp:127.0.0.1:5760 for SITL)
-  baud_rate: 57600
+  connection_string: "/dev/ttyAMA0"   # MAVLink serial port (iNav)
+  baud_rate: 115200
   altitude: 15                         # Search altitude in meters AGL
   speed: 5                             # Cruise speed in m/s
   hover_time: 2                        # Hover duration (s) at detection points
   return_to_launch: true               # RTL on mission complete or low battery
   min_battery_voltage: 14.0            # Trigger RTL below this voltage (4S LiPo)
-
-# ─────────────────────────────────────────────
-# RF Beacon Receiver (457 kHz)
-# ─────────────────────────────────────────────
-rf_beacon:
-  port: "/dev/ttyUSB1"
-  baud_rate: 9600
-  frequency_hz: 457000
-  rssi_threshold: -80                  # Minimum RSSI (dBm) to log signal
-  triangulation_points: 3              # Minimum waypoints before triangulation
 
 # ─────────────────────────────────────────────
 # RGB Camera
@@ -46,16 +36,15 @@ thermal:
 # ─────────────────────────────────────────────
 ai:
   model_path: "ai/models/yolov8n_avalanche.pt"
-  device: "cuda"                       # cuda | cpu
+  device: "cpu"                        # cpu for Raspberry Pi or external accelerator
   confidence_threshold: 0.65
   iou_threshold: 0.45
   inference_resolution: [640, 640]
 
   # Sensor fusion weights (must sum to 1.0)
   fusion_weights:
-    rf: 0.40
-    vision: 0.35
-    thermal: 0.25
+    vision: 0.60
+    thermal: 0.40
 
   # Probability threshold to trigger GPS alert
   detection_confidence_alert: 0.80

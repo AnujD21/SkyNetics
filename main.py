@@ -1,5 +1,5 @@
 """
-SkyNetics — AI-Powered Drone System for Avalanche Victim Detection
+SkyNetics — AI-Powered Drone System for Avalanche and Landslide Victim Detection
 Main Mission Orchestrator
 
 Usage:
@@ -14,7 +14,6 @@ from pathlib import Path
 
 # from drone.flight_controller import DroneController
 # from drone.waypoint_generator import generate_lawnmower_path
-# from sensors.rf_beacon.beacon_receiver import RFBeaconReceiver
 # from sensors.camera.capture import CameraCapture
 # from sensors.thermal.thermal_capture import ThermalCapture
 # from ai.detector import YOLODetector
@@ -32,7 +31,7 @@ def load_config(config_path: str = "config.yaml") -> dict:
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="SkyNetics — Avalanche Victim Detection Drone"
+        description="SkyNetics — Avalanche and Landslide Victim Detection Drone"
     )
     parser.add_argument(
         "--mode",
@@ -44,7 +43,7 @@ def parse_args():
         "--zone",
         type=str,
         required=True,
-        help="Path to GeoJSON file defining the avalanche zone boundary"
+        help="Path to GeoJSON file defining the disaster zone boundary"
     )
     parser.add_argument(
         "--config",
@@ -66,7 +65,7 @@ def main():
     log = logging.getLogger("SkyNetics")
 
     log.info("=" * 60)
-    log.info("  SkyNetics — Avalanche Victim Detection System")
+    log.info("  SkyNetics — Avalanche & Landslide Victim Detection")
     log.info("=" * 60)
     log.info(f"  Mode     : {args.mode.upper()}")
     log.info(f"  Zone File: {args.zone}")
@@ -79,7 +78,6 @@ def main():
 
     # ── Initialize subsystems ───────────────────────────────────
     # drone       = DroneController(config)
-    # rf_receiver = RFBeaconReceiver(config)
     # camera      = CameraCapture(config)
     # thermal     = ThermalCapture(config)
     # detector    = YOLODetector(config)
@@ -95,11 +93,10 @@ def main():
     # drone.arm_and_takeoff(config["drone"]["altitude"])
     # for wp in waypoints:
     #     drone.goto(wp)
-    #     rf_data    = rf_receiver.read()
     #     cam_frame  = camera.capture()
     #     therm_frame = thermal.capture()
     #     detections = detector.infer(cam_frame)
-    #     result     = fusion.fuse(rf_data, detections, therm_frame)
+    #     result     = fusion.fuse(detections, therm_frame)
     #     heatmap.update(wp, result)
     #     if result.confidence >= config["ai"]["detection_confidence_alert"]:
     #         alerts.dispatch(wp, result)

@@ -2,326 +2,276 @@
     {
         "lat": 51.423985149479385,
         "lon": -115.65489851622384,
-        "probability": 0.046,
+        "probability": 0.039,
         "sources": {
-            "rf_raw": -96.27720982523967,
             "cv_raw": 0.0,
-            "thermal_raw": 0.8451618151130514,
-            "rf_weighted": 0.024818601165068895,
+            "thermal_raw": 0.9628059082778729,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.021129045377826287
+            "thermal_weighted": 0.03851223633111492
         }
     },
     {
         "lat": 51.423985149479385,
         "lon": -115.65475445209869,
-        "probability": 0.21,
+        "probability": 0.014,
         "sources": {
-            "rf_raw": -70.87351866337481,
             "cv_raw": 0.0,
-            "thermal_raw": 0.6162671532190668,
-            "rf_weighted": 0.19417654224416794,
+            "thermal_raw": 0.35578746216938706,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.01540667883047667
+            "thermal_weighted": 0.014231498486775483
         }
     },
     {
         "lat": 51.423985149479385,
         "lon": -115.65461038797353,
-        "probability": 0.085,
+        "probability": 0.021,
         "sources": {
-            "rf_raw": -90.95657831199895,
             "cv_raw": 0.0,
-            "thermal_raw": 0.986237726406302,
-            "rf_weighted": 0.060289477920006974,
+            "thermal_raw": 0.5289041658895152,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.02465594316015755
+            "thermal_weighted": 0.021156166635580606
         }
     },
     {
         "lat": 51.423985149479385,
         "lon": -115.65446632384838,
-        "probability": 0.041,
+        "probability": 0.019,
         "sources": {
-            "rf_raw": -94.92087737616129,
             "cv_raw": 0.0,
-            "thermal_raw": 0.2970652502589505,
-            "rf_weighted": 0.0338608174922581,
+            "thermal_raw": 0.4831354786043691,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.007426631256473762
+            "thermal_weighted": 0.019325419144174766
         }
     },
     {
         "lat": 51.423985149479385,
         "lon": -115.65432225972323,
-        "probability": 0.214,
+        "probability": 0.048,
         "sources": {
-            "rf_raw": -70.10190728957436,
             "cv_raw": 0.0,
-            "thermal_raw": 0.5932238207675576,
-            "rf_weighted": 0.1993206180695043,
+            "thermal_raw": 1.203209195732177,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.01483059551918894
+            "thermal_weighted": 0.04812836782928709
         }
     },
     {
         "lat": 51.4240749810078,
         "lon": -115.65432225972323,
-        "probability": 0.044,
+        "probability": 0.059,
         "sources": {
-            "rf_raw": -93.8034197134324,
             "cv_raw": 0.0,
-            "thermal_raw": 0.10073301370795192,
-            "rf_weighted": 0.041310535243783975,
+            "thermal_raw": 1.4737943889970198,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.002518325342698798
+            "thermal_weighted": 0.05895177555988079
         }
     },
     {
         "lat": 51.4240749810078,
         "lon": -115.65446632384838,
-        "probability": 0.147,
+        "probability": 0.06,
         "sources": {
-            "rf_raw": -81.98655289162204,
             "cv_raw": 0.0,
-            "thermal_raw": 1.0754792850576191,
-            "rf_weighted": 0.1200896473891864,
+            "thermal_raw": 1.4920879951412376,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.02688698212644048
+            "thermal_weighted": 0.0596835198056495
         }
     },
     {
         "lat": 51.4240749810078,
         "lon": -115.65461038797353,
-        "probability": 0.762,
+        "probability": 0.668,
         "sources": {
-            "rf_raw": -45,
             "cv_raw": 0.88,
             "thermal_raw": 3.5,
-            "rf_weighted": 0.3666666666666667,
-            "cv_weighted": 0.308,
-            "thermal_weighted": 0.0875
+            "cv_weighted": 0.528,
+            "thermal_weighted": 0.13999999999999999
         }
     },
     {
         "lat": 51.4240749810078,
         "lon": -115.65475445209869,
-        "probability": 0.214,
+        "probability": 0.056,
         "sources": {
-            "rf_raw": -72.12099567454149,
             "cv_raw": 0.0,
-            "thermal_raw": 1.1420102522540714,
-            "rf_weighted": 0.18586002883639008,
+            "thermal_raw": 1.4015615300199453,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.028550256306351784
+            "thermal_weighted": 0.05606246120079781
         }
     },
     {
         "lat": 51.4240749810078,
         "lon": -115.65489851622384,
-        "probability": 0.041,
+        "probability": 0.014,
         "sources": {
-            "rf_raw": -95.44472476830909,
             "cv_raw": 0.0,
-            "thermal_raw": 0.4341480543109765,
-            "rf_weighted": 0.030368501544606092,
+            "thermal_raw": 0.3387347879903605,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.010853701357774411
+            "thermal_weighted": 0.013549391519614422
         }
     },
     {
         "lat": 51.42416481253621,
         "lon": -115.65489851622384,
-        "probability": 0.158,
+        "probability": 0.012,
         "sources": {
-            "rf_raw": -80.5902287016637,
             "cv_raw": 0.0,
-            "thermal_raw": 1.1295015051836446,
-            "rf_weighted": 0.129398475322242,
+            "thermal_raw": 0.28788090669665256,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.028237537629591115
+            "thermal_weighted": 0.011515236267866102
         }
     },
     {
         "lat": 51.42416481253621,
         "lon": -115.65475445209869,
-        "probability": 0.053,
+        "probability": 0.006,
         "sources": {
-            "rf_raw": -97.27266499838103,
             "cv_raw": 0.0,
-            "thermal_raw": 1.396806629889621,
-            "rf_weighted": 0.018182233344126456,
+            "thermal_raw": 0.14519410253869666,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.03492016574724052
+            "thermal_weighted": 0.005807764101547867
         }
     },
     {
         "lat": 51.42416481253621,
         "lon": -115.65461038797353,
-        "probability": 0.127,
+        "probability": 0.007,
         "sources": {
-            "rf_raw": -86.11194502256387,
             "cv_raw": 0.0,
-            "thermal_raw": 1.3847751683902745,
-            "rf_weighted": 0.09258703318290752,
+            "thermal_raw": 0.17602639196715514,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.03461937920975686
+            "thermal_weighted": 0.007041055678686206
         }
     },
     {
         "lat": 51.42416481253621,
         "lon": -115.65446632384838,
-        "probability": 0.223,
+        "probability": 0.03,
         "sources": {
-            "rf_raw": -71.48202936785421,
             "cv_raw": 0.0,
-            "thermal_raw": 1.3139548513790302,
-            "rf_weighted": 0.1901198042143053,
+            "thermal_raw": 0.751163549182443,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.03284887128447576
+            "thermal_weighted": 0.03004654196729772
         }
     },
     {
         "lat": 51.42416481253621,
         "lon": -115.65432225972323,
-        "probability": 0.129,
+        "probability": 0.055,
         "sources": {
-            "rf_raw": -81.12019826396646,
             "cv_raw": 0.0,
-            "thermal_raw": 0.11213532496640555,
-            "rf_weighted": 0.12586534490689028,
+            "thermal_raw": 1.3672691198043558,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.0028033831241601388
+            "thermal_weighted": 0.05469076479217423
         }
     },
     {
         "lat": 51.42425464406462,
         "lon": -115.65432225972323,
-        "probability": 0.208,
+        "probability": 0.011,
         "sources": {
-            "rf_raw": -71.48125252922509,
             "cv_raw": 0.0,
-            "thermal_raw": 0.7339433204892024,
-            "rf_weighted": 0.19012498313849943,
+            "thermal_raw": 0.2778538436636486,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.01834858301223006
+            "thermal_weighted": 0.011114153746545945
         }
     },
     {
         "lat": 51.42425464406462,
         "lon": -115.65446632384838,
-        "probability": 0.126,
+        "probability": 0.051,
         "sources": {
-            "rf_raw": -86.49019593429117,
             "cv_raw": 0.0,
-            "thermal_raw": 1.4550991411314305,
-            "rf_weighted": 0.0900653604380589,
+            "thermal_raw": 1.2750079503277139,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.03637747852828576
+            "thermal_weighted": 0.05100031801310856
         }
     },
     {
         "lat": 51.42425464406462,
         "lon": -115.65461038797353,
-        "probability": 0.19,
+        "probability": 0.051,
         "sources": {
-            "rf_raw": -75.01852621036903,
             "cv_raw": 0.0,
-            "thermal_raw": 0.9522833605066156,
-            "rf_weighted": 0.1665431585975398,
+            "thermal_raw": 1.2665993863587923,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.02380708401266539
+            "thermal_weighted": 0.050663975454351695
         }
     },
     {
         "lat": 51.42425464406462,
         "lon": -115.65475445209869,
-        "probability": 0.093,
+        "probability": 0.022,
         "sources": {
-            "rf_raw": -88.23428955198789,
             "cv_raw": 0.0,
-            "thermal_raw": 0.5626386811229475,
-            "rf_weighted": 0.0784380696534141,
+            "thermal_raw": 0.5442276517874299,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.014065967028073686
+            "thermal_weighted": 0.021769106071497197
         }
     },
     {
         "lat": 51.42425464406462,
         "lon": -115.65489851622384,
-        "probability": 0.142,
+        "probability": 0.005,
         "sources": {
-            "rf_raw": -82.1585643470748,
             "cv_raw": 0.0,
-            "thermal_raw": 0.9181089663046079,
-            "rf_weighted": 0.11894290435283467,
+            "thermal_raw": 0.12373968667281326,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.0229527241576152
+            "thermal_weighted": 0.004949587466912531
         }
     },
     {
         "lat": 51.42434447559303,
         "lon": -115.65489851622384,
-        "probability": 0.169,
+        "probability": 0.018,
         "sources": {
-            "rf_raw": -76.45399981802926,
             "cv_raw": 0.0,
-            "thermal_raw": 0.4623243718255473,
-            "rf_weighted": 0.1569733345464716,
+            "thermal_raw": 0.45860079260784226,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.011558109295638682
+            "thermal_weighted": 0.01834403170431369
         }
     },
     {
         "lat": 51.42434447559303,
         "lon": -115.65475445209869,
-        "probability": 0.12,
+        "probability": 0.031,
         "sources": {
-            "rf_raw": -82.4777283247524,
             "cv_raw": 0.0,
-            "thermal_raw": 0.1419977098993907,
-            "rf_weighted": 0.11681514450165063,
+            "thermal_raw": 0.7789388318516428,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.0035499427474847676
+            "thermal_weighted": 0.031157553274065716
         }
     },
     {
         "lat": 51.42434447559303,
         "lon": -115.65461038797353,
-        "probability": 0.057,
+        "probability": 0.013,
         "sources": {
-            "rf_raw": -96.25234051236802,
             "cv_raw": 0.0,
-            "thermal_raw": 1.2765469938848963,
-            "rf_weighted": 0.024984396584213187,
+            "thermal_raw": 0.326053644745318,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.03191367484712241
+            "thermal_weighted": 0.01304214578981272
         }
     },
     {
         "lat": 51.42434447559303,
         "lon": -115.65446632384838,
-        "probability": 0.124,
+        "probability": 0.05,
         "sources": {
-            "rf_raw": -84.2142083223011,
             "cv_raw": 0.0,
-            "thermal_raw": 0.7537668191024176,
-            "rf_weighted": 0.10523861118465933,
+            "thermal_raw": 1.2378979914024735,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.01884417047756044
+            "thermal_weighted": 0.049515919656098945
         }
     },
     {
         "lat": 51.42434447559303,
         "lon": -115.65432225972323,
-        "probability": 0.114,
+        "probability": 0.01,
         "sources": {
-            "rf_raw": -87.08264073215463,
             "cv_raw": 0.0,
-            "thermal_raw": 1.1247640894623476,
-            "rf_weighted": 0.08611572845230248,
+            "thermal_raw": 0.2428223410128141,
             "cv_weighted": 0.0,
-            "thermal_weighted": 0.02811910223655869
+            "thermal_weighted": 0.009712893640512565
         }
     }
 ]

@@ -1,17 +1,17 @@
-# 🛸 SkyNetics — AI-Powered Drone System for Avalanche Victim Detection
+# 🚁 SkyNetics — AI-Powered Drone System for Avalanche and Landslide Victim Detection
 
 <div align="center">
 
-![SkyNetics Banner](https://img.shields.io/badge/SkyNetics-Avalanche%20Rescue%20AI-blue?style=for-the-badge&logo=drone&logoColor=white)
+![SkyNetics Banner](https://img.shields.io/badge/SkyNetics-Avalanche_Landslide_AI-blue?style=for-the-badge&logo=drone&logoColor=white)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10+-3670A0?style=flat-square&logo=python&logoColor=ffdd54)](https://www.python.org/)
 [![YOLO](https://img.shields.io/badge/YOLO-v8%20Nano-00FFFF?style=flat-square)](https://ultralytics.com/)
-[![Jetson Nano](https://img.shields.io/badge/Edge%20AI-NVIDIA%20Jetson%20Nano-76B900?style=flat-square&logo=nvidia)](https://developer.nvidia.com/embedded/jetson-nano)
+[![Raspberry Pi](https://img.shields.io/badge/Edge%20AI-Raspberry%20Pi-C51A4A?style=flat-square&logo=raspberry-pi)](https://www.raspberrypi.org/)
 [![Status](https://img.shields.io/badge/Status-Hackathon%20Prototype-orange?style=flat-square)]()
 
 > **"Every second counts. We make sure no one is left behind."**  
-> An autonomous, AI-powered drone platform that detects avalanche victims rapidly and accurately — where traditional search methods fail.
+> An autonomous, AI-powered drone platform that detects avalanche and landslide victims rapidly and accurately — where traditional search methods fail.
 
 [📖 Overview](#-overview) · [🎯 Problem Statement](#-problem-statement) · [🔬 Solution Architecture](#-solution-architecture) · [⚙️ Tech Stack](#️-tech-stack) · [🗂️ Repo Structure](#️-repo-structure) · [🚀 Getting Started](#-getting-started) · [📊 Results](#-results) · [🗺️ Roadmap](#️-roadmap)
 
@@ -21,9 +21,9 @@
 
 ## 📖 Overview
 
-Every year, thousands of avalanche incidents trap victims under meters of ice and snow. The **golden window of survival** — roughly **15 minutes** — makes speed of detection the single most important factor in survival outcomes. Traditional rescue operations rely on manual probing, avalanche dogs, and hand-held GPR units that are slow, physically exhausting for rescue teams, and often dangerously late.
+Every year, avalanches and landslides trap victims under meters of debris, ice, and snow. The **golden window of survival** — roughly **15 to 60 minutes** — makes speed of detection the single most important factor in survival outcomes. Traditional rescue operations rely on manual probing, large search teams, or heavy GPR units that are slow, physically exhausting, and often dangerously late in unstable terrain.
 
-**SkyNetics** is a modular, low-power, AI-driven autonomous drone platform designed to sweep avalanche zones at speed, fusing data from three independent sensor modalities to **localize buried victims in real time** and relay precise GPS coordinates to ground rescue teams.
+**SkyNetics** is a modular, AI-driven autonomous drone platform designed to sweep disaster zones at speed. It fuses data from RGB and thermal sensing modalities, processes it locally on a **Raspberry Pi** edge computer, and transmits GPS coordinates via **LoRa telemetry** to ground rescue teams.
 
 ---
 
@@ -31,13 +31,12 @@ Every year, thousands of avalanche incidents trap victims under meters of ice an
 
 | Challenge | Current Reality |
 |---|---|
-| **Detection Speed** | Manual probing covers ~20 m²/min; survival drops to <30% after 35 min |
-| **Harsh Conditions** | Fog, snowfall, nighttime, and terrain make visual search nearly impossible |
-| **GPR Limitations** | Ground Penetrating Radar is accurate but weighs 5–15 kg and drains batteries fast |
-| **Rescue Team Risk** | Further avalanche slides during searches endanger rescue personnel |
-| **Remote Terrain** | Limited network access makes cloud-dependent AI systems unreliable |
+| **Detection Speed** | Manual probing is incredibly slow; survival drops significantly outside the "Golden Hour". |
+| **Harsh Conditions** | Fog, snowfall, and rugged terrain make visual search highly inefficient and dangerous. |
+| **Rescue Team Risk** | Further avalanches or landslides during searches endanger rescue personnel. |
+| **Network Infrastructure** | Extreme remote terrain makes cloud-dependent AI systems useless. |
 
-**SkyNetics** addresses each of these directly through autonomous flight, multi-sensor AI fusion, and edge computing.
+**SkyNetics** addresses these challenges using autonomous navigation (**iNav**), multi-sensor AI fusion (**Vision + Thermal**), and onboard edge computing (**Raspberry Pi**), entirely bypassing the need for cloud infrastructure.
 
 ---
 
@@ -45,65 +44,55 @@ Every year, thousands of avalanche incidents trap victims under meters of ice an
 
 ### Multi-Sensor Detection Suite
 
-The drone carries three complementary sensor modules that work together through an AI fusion pipeline:
+The drone utilizes a multi-sensor detection approach, processing outputs via a fusion pipeline:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                   SkyNetics Drone                       │
 │                                                         │
-│  ┌───────────────┐  ┌──────────────┐  ┌─────────────┐  │
-│  │ 457 kHz RF    │  │ RGB Camera   │  │  Thermal    │  │
-│  │ Beacon        │  │ + YOLOv8n    │  │  Imaging    │  │
-│  │ Receiver      │  │ (CV Model)   │  │  Module     │  │
-│  └──────┬────────┘  └──────┬───────┘  └──────┬──────┘  │
-│         │                  │                  │         │
-│         └──────────────────┼──────────────────┘         │
-│                            ▼                            │
+│        ┌──────────────┐         ┌─────────────┐         │
+│        │ RGB Camera   │         │  Thermal    │         │
+│        │ + YOLOv8n    │         │  Imaging    │         │
+│        │ (CV Model)   │         │  Module     │         │
+│        └──────┬───────┘         └──────┬──────┘         │
+│               │                        │                │
+│               └───────────┬────────────┘                │
+│                           ▼                             │
 │              ┌─────────────────────────┐                │
 │              │  Multi-Sensor Fusion AI │                │
-│              │  (NVIDIA Jetson Nano)   │                │
-│              └─────────────┬───────────┘                │
-│                            │                            │
-│              ┌─────────────▼───────────┐                │
-│              │  Probability Heatmap    │                │
-│              │  + GPS Coordinates      │                │
-│              └─────────────┬───────────┘                │
-└────────────────────────────┼────────────────────────────┘
-                             │ Telemetry Link
-                             ▼
-                   ┌─────────────────┐
-                   │ Ground Control  │
-                   │ Station / App   │
-                   └─────────────────┘
+│              │     (Raspberry Pi)      │                │
+│              └────────────┬────────────┘                │
+│                           │                             │
+│              ┌────────────▼────────────┐                │
+│              │   Victim Localization   │                │
+│              │   + GPS Coordinates     │                │
+│              └────────────┬────────────┘                │
+└───────────────────────────┼─────────────────────────────┘
+                            │ Telemetry Link (433 MHz LoRa)
+                            ▼
+                  ┌─────────────────┐
+                  │ Ground Control  │
+                  │ Station / App   │
+                  └─────────────────┘
 ```
 
-### 1. 🔊 RF Avalanche Beacon Receiver (457 kHz)
-- Scans for standard **457 kHz beacon signals** (ORTOVOX, Mammut, Pieps compatible)
-- **Signal strength (RSSI) triangulation** over multiple drone waypoints estimates victim position
-- Operates even through **3–4 meters of snow** with no line-of-sight requirement
-- Low power, lightweight (< 80g), industry-standard compatible
+### 1. 📷 Computer Vision Module (YOLOv8n)
+- Real-time human detection from aerial imagery using YOLO.
+- Identifies visual indicators: human body parts, clothing, or equipment visible on the snow or debris surface.
 
-### 2. 📷 Computer Vision Module (YOLOv8n)
-- **Lightweight YOLO** variant optimized for edge inference on Jetson Nano
-- Trained to detect: human limbs, mountaineering gear (backpacks, helmets, poles), clothing patterns
-- Processes live aerial video feed at **~20 FPS** on-device
-- Confidence scores fed directly into the fusion pipeline
+### 2. 🌡️ Thermal Imaging Module
+- Detects heat signatures indicating human presence beneath shallow snow layers or landslide debris.
+- Effective under low visibility, fog, and nighttime conditions, filtering environmental noise.
 
-### 3. 🌡️ Thermal Imaging Module
-- Detects **heat signatures** from victims under shallow snow layers (< 1m)
-- Effective under **fog, snowfall, low-light, and nighttime** conditions
-- Temperature gradient maps enhance detection confidence in partial burial scenarios
+### 3. 🧠 Edge Computing (Raspberry Pi)
+- All AI inference and fusion algorithms run **onboard**. No cloud connectivity is required.
+- Sensor outputs are fused to identify targets, drastically reducing false positives.
 
-### 4. 🧠 Edge AI Fusion Engine (NVIDIA Jetson Nano)
-- All inference runs **100% onboard** — no cloud dependency
-- Fusion algorithm weights RF RSSI + CV confidence + thermal gradient to output a **victim probability heatmap**
-- GPS coordinates of high-probability zones are transmitted to rescue teams in real time
-- False positives filtered using terrain masking and environmental noise models
-
-### 5. 🚁 Autonomous Grid Search (Lawnmower Pattern)
-- Drone autonomously follows a **grid-based lawnmower search trajectory** over the avalanche zone
-- Generated dynamically from zone boundary coordinates uploaded pre-flight
-- Adjusts altitude and speed based on sensor fusion confidence levels
+### 4. 🚁 Autonomous Navigation (iNav) & Telemetry
+- The drone autonomously scans zones using pre-programmed lawnmower search paths via **iNav firmware**.
+- Telemetry and critical alerts (GPS positions) are sent to the ground over long-range **433 MHz LoRa**.
+- Live video streams via a **5.8 GHz VTX** to mobile devices.
+- Optionally deploys payloads (e.g., small medical supplies) over high-confidence detection spots.
 
 ---
 
@@ -112,29 +101,21 @@ The drone carries three complementary sensor modules that work together through 
 ### Hardware
 | Component | Specification |
 |---|---|
-| **Drone Frame** | Custom quadrotor / F450 frame |
-| **Flight Controller** | Pixhawk 4 / ArduPilot |
-| **Edge AI Processor** | NVIDIA Jetson Nano (4GB) |
-| **RF Module** | 457 kHz avalanche beacon receiver |
+| **Flight Controller** | iNav compatible Stack (FC + ESC) |
+| **Edge Compute** | Raspberry Pi 4 / 5 |
 | **Camera** | RGB HD camera (1080p) |
 | **Thermal Camera** | FLIR Lepton 3.5 / MLX90640 |
-| **GPS Module** | u-blox NEO-M8N |
-| **Telemetry** | SiK 915 MHz radio |
-| **Battery** | 4S 10,000 mAh LiPo |
+| **Telemetry / VTX** | 433 MHz LoRa / 5.8 GHz VTX |
+| **Payload Delivery** | Servo-based airdrop release mechanism |
 
 ### Software & AI
 | Technology | Purpose |
 |---|---|
 | **Python 3.10** | Core application logic |
-| **YOLOv8 Nano (Ultralytics)** | Real-time aerial object detection |
-| **OpenCV** | Image preprocessing & frame handling |
-| **NumPy / SciPy** | Signal processing & triangulation math |
-| **MAVLink / DroneKit** | Drone communication & autopilot control |
-| **Mission Planner / QGroundControl** | Flight planning & ground station |
-| **FLIR SDK / Lepton SDK** | Thermal camera data acquisition |
-| **PySerial** | RF beacon serial interface |
-| **Folium / Matplotlib** | Heatmap visualization |
-| **FastAPI** | Ground control REST API |
+| **YOLOv8 Nano** | Deep learning human detection |
+| **OpenCV** | Image processing and frame handling |
+| **iNav Configurator** | Flight planning & firmare settings |
+| **LoRa Interface** | Serial data transmission via 433MHz |
 
 ---
 
@@ -143,58 +124,15 @@ The drone carries three complementary sensor modules that work together through 
 ```
 SkyNetics/
 │
-├── 📁 drone/                          # Drone hardware configuration & MAVLink interface
-│   ├── flight_controller.py           # DroneKit autopilot interface
-│   ├── waypoint_generator.py          # Grid-based lawnmower path planner
-│   └── telemetry.py                   # Ground control data transmission
-│
-├── 📁 sensors/                        # Individual sensor interfaces
-│   ├── rf_beacon/
-│   │   ├── beacon_receiver.py         # 457 kHz signal acquisition
-│   │   └── triangulation.py           # RSSI-based victim location estimation
-│   ├── camera/
-│   │   ├── capture.py                 # RGB camera frame capture
-│   │   └── preprocessor.py            # Image resize, denoise, normalize
-│   └── thermal/
-│       ├── thermal_capture.py         # FLIR/MLX thermal frame acquisition
-│       └── gradient_analyzer.py       # Heat signature extraction
-│
-├── 📁 ai/                             # AI models and inference
-│   ├── models/
-│   │   └── yolov8n_avalanche.pt       # Fine-tuned YOLOv8 Nano weights
-│   ├── detector.py                    # Real-time YOLOv8 inference wrapper
-│   ├── fusion_engine.py               # Multi-sensor data fusion algorithm
-│   └── heatmap_generator.py           # Probability heatmap computation
-│
-├── 📁 ground_control/                 # Ground station app
-│   ├── api.py                         # FastAPI REST endpoint
-│   ├── dashboard.py                   # Real-time map & heatmap dashboard
-│   └── alert_system.py                # GPS alert + notification dispatch
-│
-├── 📁 training/                       # Model training pipeline
-│   ├── dataset/                       # Dataset configs & annotations
-│   ├── train.py                       # YOLOv8 fine-tuning script
-│   └── evaluate.py                    # Model evaluation & benchmarking
-│
-├── 📁 tests/                          # Unit & integration tests
-│   ├── test_rf_triangulation.py
-│   ├── test_fusion_engine.py
-│   └── test_detector.py
-│
-├── 📁 docs/                           # Documentation & diagrams
-│   ├── architecture_diagram.png
-│   ├── sensor_fusion_flowchart.png
-│   └── system_design.md
-│
-├── 📁 scripts/                        # Utility scripts
-│   ├── setup_jetson.sh                # Jetson Nano environment setup
-│   ├── calibrate_rf.py                # RF beacon calibration tool
-│   └── simulate_mission.py            # Mission simulation (no hardware needed)
-│
-├── requirements.txt                   # Python dependencies
-├── config.yaml                        # System-wide configuration
-├── main.py                            # Main mission orchestrator entry point
-├── LICENSE
+├── 📁 drone/                          # iNav interface & drone hardware configuration
+├── 📁 sensors/                        # Sensor interfaces (CV and Thermal)
+├── 📁 ai/                             # YOLO models & sensor fusion algorithms
+├── 📁 ground_control/                 # Ground Station & alert dispatch
+├── 📁 training/                       # YOLO model fine-tuning pipeline
+├── 📁 tests/                          # Unit and integration tests
+├── 📁 scripts/                        # Setup and simulation tools
+├── config.yaml                        # Mission parameters and system configs
+├── main.py                            # Mission Orchestrator
 └── README.md
 ```
 
@@ -204,193 +142,44 @@ SkyNetics/
 
 ### Prerequisites
 - Python 3.10+
-- NVIDIA Jetson Nano with JetPack 4.6+ (or any Linux machine for simulation)
-- USB-connected RF beacon receiver
-- FLIR Lepton / MLX90640 thermal module
-- RGB USB/CSI camera
+- Raspberry Pi (running Raspberry Pi OS / Ubuntu)
+- Thermal module & RGB Camera
 
 ### Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-org/SkyNetics.git
 cd SkyNetics
 
 # Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# For Jetson Nano hardware setup
-chmod +x scripts/setup_jetson.sh
-./scripts/setup_jetson.sh
-```
-
-### Configuration
-
-Edit `config.yaml` to configure your hardware ports and mission parameters:
-
-```yaml
-drone:
-  connection_string: "/dev/ttyUSB0"   # MAVLink connection
-  altitude: 15                         # Search altitude in meters
-  speed: 5                             # Flight speed m/s
-
-rf_beacon:
-  port: "/dev/ttyUSB1"
-  baud_rate: 9600
-  frequency_hz: 457000
-
-camera:
-  device_id: 0
-  resolution: [1280, 720]
-  fps: 30
-
-thermal:
-  device: "lepton"                     # lepton | mlx90640
-
-ai:
-  model_path: "ai/models/yolov8n_avalanche.pt"
-  confidence_threshold: 0.65
-  fusion_weights:
-    rf: 0.40
-    vision: 0.35
-    thermal: 0.25
-
-mission:
-  zone_boundary: []                    # GPS polygon of avalanche zone
-  grid_spacing: 10                     # Meters between search rows
+# Hardware setup script
+chmod +x scripts/setup_raspberrypi.sh
+./scripts/setup_raspberrypi.sh
 ```
 
 ### Run a Mission
 
 ```bash
-# Simulate a mission (no hardware needed)
-python scripts/simulate_mission.py --zone sample_data/zone_polygon.json
+# Simulate a mission
+python main.py --mode simulate --zone sample_data/zone_polygon.json
 
-# Run a live mission
+# Live mission
 python main.py --mode live --zone mission/zone.json
 ```
-
-### Run Tests
-
-```bash
-pytest tests/ -v
-```
-
-### ✅ Example Simulation Output
-
-When you run `simulate_mission.py`, you will see the multi-sensor AI fusion engine in action:
-```text
-[INFO] Generating lawnmower pattern starting at 51.423985, -115.654898 with 10m spacing
-[INFO] Initialized Fusion Engine with weights: {'rf': 0.4, 'vision': 0.35, 'thermal': 0.25}
-[INFO] Drone taking off to 15m
-[INFO] Navigating to WP 1/25: (51.423985149479386, -115.65489851622384)
-...
-[INFO] Navigating to WP 8/25: (51.42407502847937, -115.65475445209848)
-[INFO] New high-probability zone detected (Prob: 0.941)
-[WARNING] 
-------------------------------------------------------------
-🚨 URGENT: High probability victim detection! 🚨
-Probability: 94.1%
-Coordinates: 51.42407502847937, -115.65475445209848
-Open Map: https://www.google.com/maps?q=51.42407502847937,-115.65475445209848
-Sensor Sources: {'rf_raw': -45.0, 'cv_raw': 0.88, 'thermal_raw': 3.5}
-------------------------------------------------------------
-[INFO] Mission Complete. Returning to launch.
-[INFO] Saved heatmap data to mission/output_heatmap.json
-```
-
----
-
-## 📊 Results
-
-> *Preliminary simulation and bench testing results:*
-
-| Metric | Result |
-|---|---|
-| **RF Detection Range (buried beacon)** | Up to 3.5 m depth |
-| **CV Model Inference Speed** | ~22 FPS on Jetson Nano |
-| **CV mAP@0.5 (aerial snow dataset)** | 81.4% |
-| **Thermal Detection Depth** | Up to 0.8 m snow cover |
-| **False Positive Rate (fusion)** | < 8% in simulation |
-| **Zone Coverage Speed** | ~1,200 m² / 5 min |
-| **GPS Location Accuracy** | ± 2.5 m |
-| **System Power Draw** | ~45W total (sensors + compute) |
-
----
-
-## 🗺️ Roadmap
-
-- [x] System architecture & sensor selection
-- [x] RF 457 kHz signal acquisition module
-- [x] YOLOv8n model training on aerial snow dataset
-- [x] Thermal image gradient analysis module
-- [x] Multi-sensor fusion algorithm (v1)
-- [x] Grid-based lawnmower path planner
-- [ ] Full hardware integration on drone frame
-- [ ] Field testing in simulated avalanche conditions
-- [ ] Ground control dashboard (live heatmap)
-- [ ] Swarm coordination (multi-drone parallel search)
-- [ ] Regulatory compliance & SAR team integration
-
----
-
-## 🧩 How It All Works — End to End
-
-```
-1. Rescue team defines the avalanche zone polygon via ground control app
-2. Drone takes off and begins lawnmower grid sweep at 15m altitude
-3. All three sensors collect data simultaneously in real-time
-4. Edge AI (Jetson Nano) runs YOLO inference + RF triangulation + thermal analysis
-5. Fusion engine combines sensor outputs into a probability heatmap
-6. High-confidence detections (>80%) trigger GPS coordinate extraction
-7. Coordinates + heatmap transmitted to rescue team's device instantly
-8. Rescue team deploys ground personnel to pinpointed location
-```
-
----
-
-## 👥 Team
-
-| Name | Role |
-|---|---|
-| **[Team Member 1]** | AI/ML Engineer |
-| **[Team Member 2]** | Drone Hardware & Integration |
-| **[Team Member 3]** | Embedded Systems & Edge Computing |
-| **[Team Member 4]** | Software & Ground Control |
-
----
-
-## 🏆 Hackathon
-
-> Built for **[Hackathon Name]** — *[Track/Theme]*
-
-This project was developed as a hackathon prototype with the goal of demonstrating how AI and autonomous systems can save lives in disaster scenarios.
 
 ---
 
 ## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgements
-
-- [Ultralytics YOLOv8](https://ultralytics.com/) — object detection backbone
-- [NVIDIA Jetson Nano](https://developer.nvidia.com/embedded/jetson-nano) — edge AI platform
-- [ArduPilot / DroneKit](https://dronekit.io/) — autopilot & drone SDK
-- [FLIR Systems](https://www.flir.com/) — thermal imaging
-- Avalanche rescue community for domain knowledge
+This project is licensed under the **MIT License**.
 
 ---
 
 <div align="center">
-
-**⭐ Star this repo if you think AI can save lives.**  
 **Built with ❤️ for disaster response.**
-
 </div>

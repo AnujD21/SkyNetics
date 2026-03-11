@@ -44,17 +44,15 @@ def run_simulation(zone_file: str):
         time.sleep(0.5)  # Simulate flight time
 
         # Mock sensor data
-        rf_data = {"rssi_dbm": random.uniform(-100, -70)}
         cv_dets = []
         therm_data = {"max_gradient": random.uniform(0.1, 1.5)}
 
         # Force a strong hit on waypoint 7 for demonstration
         if i == 7:
-            rf_data["rssi_dbm"] = -45
             cv_dets = [{"class": "person", "confidence": 0.88, "bbox": [0,0,10,10]}]
             therm_data["max_gradient"] = 3.5
 
-        result = fusion.fuse(rf_data, cv_dets, therm_data)
+        result = fusion.fuse(cv_dets, therm_data)
         heatmap.update(wp, result)
 
         if result.confidence >= config["ai"]["detection_confidence_alert"]:
