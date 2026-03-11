@@ -21,9 +21,9 @@ def engine():
     return SensorFusionEngine(config)
 
 def test_fusion_high_confidence(engine):
-    rf_data = {"rssi_dbm": -45}  # Strong signal
-    cv_dets = [{"confidence": 0.90}] # High confidence vision
-    therm_data = {"max_gradient": 3.0} # Strong thermal hit
+    rf_data = {"rssi_dbm": -40}  # Very strong signal
+    cv_dets = [{"confidence": 0.95}] # Very high confidence vision
+    therm_data = {"max_gradient": 9.0} # Intense thermal hit
 
     result = engine.fuse(rf_data, cv_dets, therm_data)
     

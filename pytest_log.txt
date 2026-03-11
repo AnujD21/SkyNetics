@@ -1,0 +1,31 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.10.5, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\Anuj\AppData\Local\Programs\Python\Python310\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Anuj\Desktop\SkyNetics
+plugins: anyio-4.12.1, cov-7.0.0
+collecting ... collected 2 items
+
+tests/test_fusion_engine.py::test_fusion_high_confidence FAILED          [ 50%]
+tests/test_fusion_engine.py::test_fusion_low_confidence PASSED           [100%]
+
+================================== FAILURES ===================================
+_________________________ test_fusion_high_confidence _________________________
+
+engine = <ai.fusion_engine.SensorFusionEngine object at 0x0000028445BE71F0>
+
+    def test_fusion_high_confidence(engine):
+        rf_data = {"rssi_dbm": -45}  # Strong signal
+        cv_dets = [{"confidence": 0.90}] # High confidence vision
+        therm_data = {"max_gradient": 3.0} # Strong thermal hit
+    
+        result = engine.fuse(rf_data, cv_dets, therm_data)
+    
+        # We expect a high confidence result from these strong inputs
+>       assert result.confidence > 0.85
+E       assert 0.757 > 0.85
+E        +  where 0.757 = <ai.fusion_engine.FusionResult object at 0x0000028445BE7130>.confidence
+
+tests\test_fusion_engine.py:31: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_fusion_engine.py::test_fusion_high_confidence - assert 0.75...
+========================= 1 failed, 1 passed in 0.05s =========================
