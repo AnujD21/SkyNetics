@@ -21,9 +21,7 @@
 
 ## 📖 Overview
 
-Every year, avalanches and landslides trap victims under meters of debris, ice, and snow. The **golden window of survival** — roughly **15 to 60 minutes** — makes speed of detection the single most important factor in survival outcomes. Traditional rescue operations rely on manual probing, large search teams, or heavy GPR units that are slow, physically exhausting, and often dangerously late in unstable terrain.
-
-**SkyNetics** is a modular, AI-driven autonomous drone platform designed to sweep disaster zones at speed. It fuses data from RGB and thermal sensing modalities, processes it locally on a **Raspberry Pi** edge computer, and transmits GPS coordinates via **LoRa telemetry** to ground rescue teams.
+The proposed system is an AI-powered autonomous drone platform designed to rapidly detect victims buried under avalanches or landslides, where survival depends heavily on the limited rescue window known as the Golden Hour. Traditional search methods rely on manual probing and ground teams, which are slow, dangerous, and inefficient across large disaster areas. The system addresses these challenges by combining autonomous drone navigation, AI-based detection, and multi-sensor fusion to accelerate victim localization and support rescue teams.
 
 ---
 
@@ -36,7 +34,9 @@ Every year, avalanches and landslides trap victims under meters of debris, ice, 
 | **Rescue Team Risk** | Further avalanches or landslides during searches endanger rescue personnel. |
 | **Network Infrastructure** | Extreme remote terrain makes cloud-dependent AI systems useless. |
 
-**SkyNetics** addresses these challenges using autonomous navigation (**iNav**), multi-sensor AI fusion (**Vision + Thermal**), and onboard edge computing (**Raspberry Pi**), entirely bypassing the need for cloud infrastructure.
+**SkyNetics** addresses these challenges using autonomous navigation (**iNav** with **optical flow stabilization**), multi-sensor AI fusion (**Vision, Thermal, and mmWave**), and onboard edge computing (**Raspberry Pi**), entirely bypassing the need for cloud infrastructure.
+
+By combining AI-based computer vision, thermal sensing, mmWave life-sign detection, optical flow stabilization, and edge computing, the system significantly reduces search time, improves detection accuracy, and enhances the safety of rescue operations. This integrated approach provides a scalable and cost-effective solution for modern disaster response in avalanche and landslide environments.
 
 ---
 
@@ -44,55 +44,55 @@ Every year, avalanches and landslides trap victims under meters of debris, ice, 
 
 ### Multi-Sensor Detection Suite
 
-The drone utilizes a multi-sensor detection approach, processing outputs via a fusion pipeline:
+The drone integrates a multi-sensor detection suite consisting of an RGB camera, thermal imaging module, mmWave radar sensor, and RF beacon detection. All sensor data is processed onboard using a Raspberry Pi edge computing unit. 
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                   SkyNetics Drone                       │
-│                                                         │
-│        ┌──────────────┐         ┌─────────────┐         │
-│        │ RGB Camera   │         │  Thermal    │         │
-│        │ + YOLOv8n    │         │  Imaging    │         │
-│        │ (CV Model)   │         │  Module     │         │
-│        └──────┬───────┘         └──────┬──────┘         │
-│               │                        │                │
-│               └───────────┬────────────┘                │
-│                           ▼                             │
-│              ┌─────────────────────────┐                │
-│              │  Multi-Sensor Fusion AI │                │
-│              │     (Raspberry Pi)      │                │
-│              └────────────┬────────────┘                │
-│                           │                             │
-│              ┌────────────▼────────────┐                │
-│              │   Victim Localization   │                │
-│              │   + GPS Coordinates     │                │
-│              └────────────┬────────────┘                │
-└───────────────────────────┼─────────────────────────────┘
-                            │ Telemetry Link (433 MHz LoRa)
-                            ▼
-                  ┌─────────────────┐
-                  │ Ground Control  │
-                  │ Station / App   │
-                  └─────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                          SkyNetics Drone                               │
+│                                                                        │
+│    ┌──────────────┐     ┌─────────────┐     ┌───────────────────┐      │
+│    │ RGB Camera   │     │  Thermal    │     │  mmWave Radar     │      │
+│    │ + YOLOv8     │     │  Imaging    │     │  (Micro-movement) │      │
+│    └──────┬───────┘     └──────┬──────┘     └─────────┬─────────┘      │
+│           │                    │                      │                │
+│           └────────────────────┼──────────────────────┘                │
+│                                ▼                                       │
+│                   ┌─────────────────────────┐                          │
+│                   │  Multi-Sensor Fusion AI │                          │
+│                   │     (Raspberry Pi)      │                          │
+│                   └────────────┬────────────┘                          │
+│                                │                                       │
+│                   ┌────────────▼────────────┐                          │
+│                   │   Victim Localization   │                          │
+│                   │   + GPS Coordinates     │                          │
+│                   └────────────┬────────────┘                          │
+└────────────────────────────────┼───────────────────────────────────────┘
+                                 │ Telemetry Link (433 MHz LoRa)
+                                 ▼
+                     ┌───────────────────────┐
+                     │ Ground Control        │
+                     │ Station / App         │
+                     └───────────────────────┘
 ```
 
-### 1. 📷 Computer Vision Module (YOLOv8n)
-- Real-time human detection from aerial imagery using YOLO.
-- Identifies visual indicators: human body parts, clothing, or equipment visible on the snow or debris surface.
+### 1. 📷 Computer Vision Module (YOLOv8)
+- A YOLO-based deep learning model (Ultralytics) processes aerial images in real time to identify visual indicators such as exposed body parts, clothing, or mountaineering equipment.
 
 ### 2. 🌡️ Thermal Imaging Module
-- Detects heat signatures indicating human presence beneath shallow snow layers or landslide debris.
-- Effective under low visibility, fog, and nighttime conditions, filtering environmental noise.
+- A thermal imaging sensor detects heat signatures from victims buried under shallow snow or debris, particularly useful in low-visibility conditions.
 
-### 3. 🧠 Edge Computing (Raspberry Pi)
-- All AI inference and fusion algorithms run **onboard**. No cloud connectivity is required.
-- Sensor outputs are fused to identify targets, drastically reducing false positives.
+### 3. 📡 mmWave Radar Sensor
+- A mmWave radar sensor is integrated to identify micro-movements such as breathing or slight body motion beneath snow or debris layers, allowing detection even when victims are not visually visible.
 
-### 4. 🚁 Autonomous Navigation (iNav) & Telemetry
-- The drone autonomously scans zones using pre-programmed lawnmower search paths via **iNav firmware**.
-- Telemetry and critical alerts (GPS positions) are sent to the ground over long-range **433 MHz LoRa**.
-- Live video streams via a **5.8 GHz VTX** to mobile devices.
-- Optionally deploys payloads (e.g., small medical supplies) over high-confidence detection spots.
+### 4. 🧠 Edge Computing & Fusion (Raspberry Pi)
+- All sensor data is processed onboard using a Raspberry Pi edge computing unit, enabling real-time inference without cloud connectivity, which is critical for remote mountainous regions.
+- The outputs from the vision model, thermal sensor, and mmWave radar are combined using a multi-sensor fusion algorithm that evaluates detection confidence and generates a probability-based victim location map.
+
+### 5. 🚁 Autonomous Navigation (iNav) & Telemetry
+- For stable navigation and precise low-altitude flight in harsh terrain, the drone incorporates an **optical flow sensor**, which measures ground motion using visual pattern tracking. This enables accurate position estimation, drift correction, and stable hovering, especially in GPS-degraded environments such as snow-covered valleys or mountainous regions.
+- The drone operates using open-source iNav flight firmware, with the ESC and flight controller configured as a stacked architecture for reliability and modularity. The system supports ~30 minutes of flight endurance and includes payload capability for sensors and emergency airdrops.
+- Communication with ground teams is achieved using 433 MHz LoRa-based long-range telemetry, while a 5.8 GHz video transmission system (VTX) streams live aerial footage to rescue teams on smart devices.
+- During operation, the drone autonomously scans the disaster zone using a predefined grid-based search pattern, processes sensor data in real time, and transmits GPS coordinates of detected victims to rescue teams for rapid response.
 
 ---
 

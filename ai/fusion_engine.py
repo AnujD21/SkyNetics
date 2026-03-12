@@ -1,6 +1,6 @@
 """
 SkyNetics - AI Sensor Fusion Engine
-Combines Computer Vision and Thermal data into a unified probability for Avalanche and Landslide Victim Detection.
+Combines Computer Vision, Thermal, and mmWave Radar data into a unified probability for Avalanche and Landslide Victim Detection.
 """
 import logging
 
@@ -16,9 +16,9 @@ class SensorFusionEngine:
         self.weights = config["ai"]["fusion_weights"]
         logger.info(f"Initialized Fusion Engine with weights: {self.weights}")
 
-    def fuse(self, cv_detections: list, thermal_data: dict) -> FusionResult:
+    def fuse(self, cv_detections: list, thermal_data: dict, mmwave_data: dict) -> FusionResult:
         """
-        Fuses data out of the two sensor modalities (CV and Thermal).
+        Fuses data out of the three sensor modalities (CV, Thermal, and mmWave).
         Returns a uniform probability score (0.0 to 1.0)
         """
         # 1. CV Score (highest confidence detection)
@@ -30,17 +30,24 @@ class SensorFusionEngine:
         thermal_score = thermal_data.get("max_gradient", 0.0) / 10.0
         thermal_score = max(0.0, min(1.0, thermal_score))
 
+        # 3. mmWave Score (mock logic based on micro-movement intensity)
+        mmwave_score = mmwave_data.get("micro_movement", 0.0) / 2.0
+        mmwave_score = max(0.0, min(1.0, mmwave_score))
+
         # Apply weights
         total_confidence = (
-            cv_score * self.weights.get("vision", 0.60) +
-            thermal_score * self.weights.get("thermal", 0.40)
+            cv_score * self.weights.get("vision", 0.50) +
+            thermal_score * self.weights.get("thermal", 0.30) +
+            mmwave_score * self.weights.get("mmwave", 0.20)
         )
 
         sources = {
             "cv_raw": cv_score,
             "thermal_raw": thermal_data.get("max_gradient", 0),
-            "cv_weighted": cv_score * self.weights.get("vision", 0.60),
-            "thermal_weighted": thermal_score * self.weights.get("thermal", 0.40)
+            "mmwave_raw": mmwave_data.get("micro_movement", 0),
+            "cv_weighted": cv_score * self.weights.get("vision", 0.50),
+            "thermal_weighted": thermal_score * self.weights.get("thermal", 0.30),
+            "mmwave_weighted": mmwave_score * self.weights.get("mmwave", 0.20)
         }
         
         return FusionResult(round(total_confidence, 3), sources)

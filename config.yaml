@@ -12,6 +12,7 @@ drone:
   hover_time: 2                        # Hover duration (s) at detection points
   return_to_launch: true               # RTL on mission complete or low battery
   min_battery_voltage: 14.0            # Trigger RTL below this voltage (4S LiPo)
+  optical_flow: true                   # Enable visual position estimation for GPS-degraded zones
 
 # ─────────────────────────────────────────────
 # RGB Camera
@@ -32,6 +33,14 @@ thermal:
   frame_rate: 9                        # FPS (limited by Lepton 3.5)
 
 # ─────────────────────────────────────────────
+# mmWave Radar
+# ─────────────────────────────────────────────
+mmwave:
+  device_port: "/dev/ttyUSB0"
+  baud_rate: 921600
+  micro_movement_threshold: 0.15       # Threshold for detecting breathing/slight motion
+
+# ─────────────────────────────────────────────
 # AI / Inference Engine
 # ─────────────────────────────────────────────
 ai:
@@ -43,8 +52,9 @@ ai:
 
   # Sensor fusion weights (must sum to 1.0)
   fusion_weights:
-    vision: 0.60
-    thermal: 0.40
+    vision: 0.50
+    thermal: 0.30
+    mmwave: 0.20
 
   # Probability threshold to trigger GPS alert
   detection_confidence_alert: 0.80

@@ -46,13 +46,15 @@ def run_simulation(zone_file: str):
         # Mock sensor data
         cv_dets = []
         therm_data = {"max_gradient": random.uniform(0.1, 1.5)}
+        mmwave_data = {"micro_movement": random.uniform(0.0, 0.2)}
 
         # Force a strong hit on waypoint 7 for demonstration
         if i == 7:
             cv_dets = [{"class": "person", "confidence": 0.88, "bbox": [0,0,10,10]}]
             therm_data["max_gradient"] = 3.5
+            mmwave_data["micro_movement"] = 0.8
 
-        result = fusion.fuse(cv_dets, therm_data)
+        result = fusion.fuse(cv_dets, therm_data, mmwave_data)
         heatmap.update(wp, result)
 
         if result.confidence >= config["ai"]["detection_confidence_alert"]:

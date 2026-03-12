@@ -1,1 +1,1 @@
-"""Sensors package — RF beacon, camera, and thermal modules."""
+"""Sensors package — RF beacon, camera, thermal, and mmWave modules."""

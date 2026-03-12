@@ -5,6 +5,10 @@ Main Mission Orchestrator
 Usage:
     python main.py --mode live --zone mission/zone.json
     python main.py --mode simulate --zone sample_data/zone_polygon.json
+
+Notes:
+    - Utilizes RGB Camera, Thermal Sensor, and mmWave Radar.
+    - Optical Flow sensor is utilized under the hood in DroneController for GPS-degraded stability.
 """
 
 import argparse
@@ -16,6 +20,7 @@ from pathlib import Path
 # from drone.waypoint_generator import generate_lawnmower_path
 # from sensors.camera.capture import CameraCapture
 # from sensors.thermal.thermal_capture import ThermalCapture
+# from sensors.mmwave.radar_capture import MmWaveCapture
 # from ai.detector import YOLODetector
 # from ai.fusion_engine import SensorFusionEngine
 # from ai.heatmap_generator import HeatmapGenerator
@@ -77,9 +82,10 @@ def main():
         return
 
     # ── Initialize subsystems ───────────────────────────────────
-    # drone       = DroneController(config)
+    # drone       = DroneController(config) # Drone controller integrates optical flow stabilization internally
     # camera      = CameraCapture(config)
     # thermal     = ThermalCapture(config)
+    # radar       = MmWaveCapture(config)
     # detector    = YOLODetector(config)
     # fusion      = SensorFusionEngine(config)
     # heatmap     = HeatmapGenerator(config)
@@ -95,8 +101,9 @@ def main():
     #     drone.goto(wp)
     #     cam_frame  = camera.capture()
     #     therm_frame = thermal.capture()
+    #     mmwave_data = radar.capture()
     #     detections = detector.infer(cam_frame)
-    #     result     = fusion.fuse(detections, therm_frame)
+    #     result     = fusion.fuse(detections, therm_frame, mmwave_data)
     #     heatmap.update(wp, result)
     #     if result.confidence >= config["ai"]["detection_confidence_alert"]:
     #         alerts.dispatch(wp, result)
